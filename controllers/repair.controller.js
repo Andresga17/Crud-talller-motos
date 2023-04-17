@@ -26,6 +26,7 @@ exports.createAppointment = async (req, res) => {
   res.status(200).json({
     status: 'success',
     message: 'The Appointment has been created',
+    repair,
   });
 };
 
@@ -56,7 +57,7 @@ exports.findOneRepair = async (req, res) => {
 
 exports.updateRepairStatus = async (req, res) => {
   const { id } = req.params;
-  const {status} = req.body
+  const { status } = req.body;
   const repairUpdated = await Repair.findOne({
     where: {
       id,
