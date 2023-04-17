@@ -43,13 +43,6 @@ exports.findOneUser = async (req, res) => {
     },
   });
 
-  if (!user) {
-    return res.status(404).json({
-      status: 'error',
-      message: `User with id: ${id} not found`,
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     message:
@@ -70,12 +63,6 @@ exports.updateUser = async (req, res) => {
     },
   });
 
-  if (!userUpdated) {
-    return res.status(404).json({
-      status: 'error',
-      message: `User with id: ${id} not found`,
-    });
-  }
 
   await userUpdated.update({
     name: name,
@@ -99,13 +86,6 @@ exports.deleteUser = async (req, res) => {
       status: 'available',
     },
   });
-
-  if (!userDeleted) {
-    return res.status(404).json({
-      status: 'error',
-      message: `User with id: ${id} not found`,
-    });
-  }
 
   await userDeleted.update({
     status: 'disabled',
