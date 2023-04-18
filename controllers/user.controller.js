@@ -53,7 +53,6 @@ exports.findOneUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { user } = req;
 
   const { name, email } = req.body;
 
@@ -62,7 +61,6 @@ exports.updateUser = async (req, res) => {
       id,
     },
   });
-
 
   await userUpdated.update({
     name: name,
@@ -77,7 +75,6 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-  const { user } = req;
   const { id } = req.params;
 
   const userDeleted = await User.findOne({

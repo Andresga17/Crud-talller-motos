@@ -1,10 +1,11 @@
 const { body, validationResult } = require('express-validator');
 
 //VALIDACION DE PROPIEDADES
-const validfields = (req, res, next) => {
+
+const validateFields = (req, res, next) => {
   const errors = validationResult(req);
 
-  if (errors.isEmpty()) {
+  if (!errors.isEmpty()) {
     return res.status(400).json({
       status: 'error',
       errors: errors.mapped(),
@@ -15,14 +16,28 @@ const validfields = (req, res, next) => {
 };
 
 exports.createUserValidation = [
-  body('name').notEmpty().withMessage.apply('Name cannot be empty'),
+  body('name').notEmpty().withMessage('Name cannot be empty'),
   body('email')
     .notEmpty()
     .withMessage('email cannot be empty')
     .isEmail()
     .withMessage('Must be a valid email'),
-  body('password').notEmpty().isLength({ min: 8, max: 20 }).withMessage('password cannot be empty').withMessage('password must be at least 8 characters and maximum 20'),
-  validfields()
+  body('password')
+    .notEmpty()
+    .isLength({ min: 8, max: 20 })
+    .withMessage('password cannot be empty')
+    .withMessage('password must be at least 8 characters and maximum 20'),
+  validateFields,
+];
+
+exports.updateUserValidation = [
+  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('email')
+    .notEmpty()
+    .withMessage('email cannot be empty')
+    .isEmail()
+    .withMessage('Must be a valid email'),
+  validateFields,
 ];
 
 /**
