@@ -40,6 +40,15 @@ exports.updateUserValidation = [
   validateFields,
 ];
 
+exports.createAppointmentValidation = [
+  body('date')
+    .notEmpty()
+    .withMessage('Date cannot be empty')
+    .isDate()
+    .withMessage('Type date in a valid format AAAA/MM/DD'),
+  validateFields,
+];
+
 /**
  * RECUERDE PROVAR ESTA VALIDACION ANTES DE HACER LAS OTRAS
  * Los campos que se deben validar son lo que traen informacion

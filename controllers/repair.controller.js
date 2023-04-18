@@ -40,13 +40,6 @@ exports.findOneRepair = async (req, res) => {
     },
   });
 
-  if (!repair) {
-    return res.status(404).json({
-      status: 'error',
-      message: `Repair with id: ${id} not found`,
-    });
-  }
-
   res.status(200).json({
     status: 'succes',
     message:
@@ -58,19 +51,13 @@ exports.findOneRepair = async (req, res) => {
 exports.updateRepairStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
+
   const repairUpdated = await Repair.findOne({
     where: {
       id,
       status: 'pending',
     },
   });
-
-  if (!repairUpdated) {
-    return res.status(404).json({
-      status: 'error',
-      message: `Repair with id: ${id} not found`,
-    });
-  }
 
   await repairUpdated.update({
     status: status,
@@ -92,13 +79,6 @@ exports.cancellRepair = async (req, res) => {
       status: 'pending',
     },
   });
-
-  if (!repairCancelled) {
-    return res.status(404).json({
-      status: 'error',
-      message: `Repair with id: ${id} not found`,
-    });
-  }
 
   await repairCancelled.update({
     status: 'cancelled',
