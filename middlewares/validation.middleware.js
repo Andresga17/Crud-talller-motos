@@ -50,7 +50,6 @@ exports.createAppointmentValidation = [
 ];
 
 /**
- * RECUERDE PROVAR ESTA VALIDACION ANTES DE HACER LAS OTRAS
  * Los campos que se deben validar son lo que traen informacion
  * que envia el cliente
  */
