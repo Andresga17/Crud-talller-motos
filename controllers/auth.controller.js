@@ -2,7 +2,7 @@ const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
 const generateJWT = require('../../API_BLOG1/blog_api_gen_22/utils/jwt');
 const User = require('../models/user.model');
 const AppError = require('../utils/appError');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;

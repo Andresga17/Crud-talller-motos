@@ -1,5 +1,7 @@
 const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
+const generateJWT = require('../../API_BLOG1/blog_api_gen_22/utils/jwt');
 const User = require('../models/user.model');
+const bcrypt = require('bcryptjs');
 
 exports.findAllUsers = catchAsync(async (req, res) => {
   const users = await User.findAll({
@@ -17,18 +19,29 @@ exports.findAllUsers = catchAsync(async (req, res) => {
 
 exports.createUsers = catchAsync(async (req, res) => {
   const { name, email, password, role } = req.body;
-//Crear los saltos de la contraseña aqui
+
+  const salt = await bcrypt.genSalt(10);
+  const encryptedPassword = await bcrypt.hash(password, salt);
+
   const user = await User.create({
-    name,
-    email,
-    password,
+    name: name.toLowerCase(),
+    email: email.toLowerCase(),
+    password: encryptedPassword,
     role,
   });
+
+  const token = await generateJWT(user.id);
 
   res.status(201).json({
     status: 'succes',
     message: 'The user has been created',
-    user,
+    token,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
   });
 });
 

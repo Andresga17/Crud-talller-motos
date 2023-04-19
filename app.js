@@ -1,10 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
-const userRouter = require('./routes/user.routes');
-const repairRouter = require('./routes/repair.routes');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
+
+const userRouter = require('./routes/user.routes');
+const repairRouter = require('./routes/repair.routes');
 
 const app = express();
 
