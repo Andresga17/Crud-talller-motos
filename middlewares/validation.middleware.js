@@ -49,6 +49,20 @@ exports.createAppointmentValidation = [
   validateFields,
 ];
 
+exports.loginUserValidation = [
+  body('email')
+    .notEmpty()
+    .withMessage('email cannot be empty')
+    .isEmail()
+    .withMessage('must be a valid email'),
+  body('password')
+    .notEmpty()
+    .withMessage('The password cannot be empty')
+    .isLength({ min: 8 })
+    .withMessage('Password mus be at least 8 characters long'),
+  validateFields,
+];
+
 /**
  * Los campos que se deben validar son lo que traen informacion
  * que envia el cliente

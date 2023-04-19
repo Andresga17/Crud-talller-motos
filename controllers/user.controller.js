@@ -17,7 +17,7 @@ exports.findAllUsers = catchAsync(async (req, res) => {
 
 exports.createUsers = catchAsync(async (req, res) => {
   const { name, email, password, role } = req.body;
-
+//Crear los saltos de la contraseña aqui
   const user = await User.create({
     name,
     email,
