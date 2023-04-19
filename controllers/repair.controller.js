@@ -1,6 +1,7 @@
+const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
 const Repair = require('../models/repair.model');
 
-exports.findPendingRepairs = async (req, res) => {
+exports.findPendingRepairs = catchAsync(async (req, res) => {
   const repairs = await Repair.findAll({
     where: {
       status: 'pending',
@@ -8,14 +9,13 @@ exports.findPendingRepairs = async (req, res) => {
   });
   res.status(200).json({
     status: 'success',
-    message:
-      'The query has been done successfully',
+    message: 'The query has been done successfully',
     results: repairs.length,
     repairs,
   });
-};
+});
 
-exports.createAppointment = async (req, res) => {
+exports.createAppointment = catchAsync(async (req, res) => {
   const { date, userId } = req.body;
 
   const repair = await Repair.create({
@@ -28,9 +28,8 @@ exports.createAppointment = async (req, res) => {
     message: 'The Appointment has been created',
     repair,
   });
-};
-
-exports.findOneRepair = async (req, res) => {
+});
+exports.findOneRepair = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const repair = await Repair.findOne({
@@ -42,13 +41,12 @@ exports.findOneRepair = async (req, res) => {
 
   res.status(200).json({
     status: 'succes',
-    message:
-      'The query has been done successfully',
+    message: 'The query has been done successfully',
     repair,
   });
-};
+});
 
-exports.updateRepairStatus = async (req, res) => {
+exports.updateRepairStatus = catchAsync(async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
@@ -68,9 +66,9 @@ exports.updateRepairStatus = async (req, res) => {
     message: 'The reapir has been completed',
     repairUpdated,
   });
-};
+});
 
-exports.cancellRepair = async (req, res) => {
+exports.cancellRepair = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const repairCancelled = await Repair.findOne({
@@ -89,4 +87,4 @@ exports.cancellRepair = async (req, res) => {
     message: 'The repair has been cancelled',
     repairCancelled,
   });
-};
+})

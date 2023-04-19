@@ -1,6 +1,7 @@
+const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
 const User = require('../models/user.model');
 
-exports.findAllUsers = async (req, res) => {
+exports.findAllUsers = catchAsync(async (req, res) => {
   const users = await User.findAll({
     where: {
       status: 'available',
@@ -8,16 +9,14 @@ exports.findAllUsers = async (req, res) => {
   });
   res.status(200).json({
     status: 'success',
-    messege:
-      'The query has been done successfully',
+    messege: 'The query has been done successfully',
     results: users.length,
     users,
   });
-};
+});
 
-exports.createUsers = async (req, res) => {
-  const { name, email, password, role } =
-    req.body;
+exports.createUsers = catchAsync(async (req, res) => {
+  const { name, email, password, role } = req.body;
 
   const user = await User.create({
     name,
@@ -31,9 +30,9 @@ exports.createUsers = async (req, res) => {
     message: 'The user has been created',
     user,
   });
-};
+});
 
-exports.findOneUser = async (req, res) => {
+exports.findOneUser = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const user = await User.findOne({
@@ -45,13 +44,12 @@ exports.findOneUser = async (req, res) => {
 
   res.status(200).json({
     status: 'success',
-    message:
-      'The query has been done successfully',
+    message: 'The query has been done successfully',
     user,
   });
-};
+});
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const { name, email } = req.body;
@@ -72,9 +70,9 @@ exports.updateUser = async (req, res) => {
     message: 'The user has been updated',
     userUpdated,
   });
-};
+});
 
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = catchAsync(async (req, res) => {
   const { id } = req.params;
 
   const userDeleted = await User.findOne({
@@ -93,4 +91,4 @@ exports.deleteUser = async (req, res) => {
     message: 'The user has been deleted',
     userDeleted,
   });
-};
+});
