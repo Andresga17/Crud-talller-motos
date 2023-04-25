@@ -65,8 +65,8 @@ exports.findOneUser = catchAsync(async (req, res) => {
       {
         model: Repair,
         attributes: { exclude: ['userId'] },
-      }
-    ]
+      },
+    ],
   });
 
   res.status(200).json({

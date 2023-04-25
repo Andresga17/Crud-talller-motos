@@ -10,9 +10,9 @@ exports.findPendingRepairs = catchAsync(async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ['id', 'name', 'email']
-      }
-    ]
+        attributes: ['id', 'name', 'email'],
+      },
+    ],
   });
   res.status(200).json({
     status: 'success',
@@ -50,9 +50,9 @@ exports.findOneRepair = catchAsync(async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ['id', 'name', 'email']
-      }
-    ]
+        attributes: ['id', 'name', 'email'],
+      },
+    ],
   });
 
   res.status(200).json({

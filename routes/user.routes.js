@@ -18,12 +18,11 @@ router
   .route('/')
   .post(validation.createUserValidation, userController.createUsers);
 
-  router.use(authMiddleware.protect);
-  
-  router
+router.use(authMiddleware.protect);
+
+router
   .route('/')
   .get(authMiddleware.restrictTo('employee'), userController.findAllUsers);
-  
 
 router
   .route('/:id')
@@ -32,12 +31,12 @@ router
     userMiddleware.validIfUserExist,
     authMiddleware.protectAccountOwner,
     userController.updateUser,
-    validation.updateUserValidation,
+    validation.updateUserValidation
   )
   .delete(
     userMiddleware.validIfUserExist,
     authMiddleware.protectAccountOwner,
-    userController.deleteUser,
+    userController.deleteUser
   );
 
 module.exports = router;

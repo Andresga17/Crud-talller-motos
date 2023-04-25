@@ -8,13 +8,13 @@ const authMiddleware = require('./../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.use(authMiddleware.protect)
+router.use(authMiddleware.protect);
 
 router
   .route('/')
   .get(
     authMiddleware.restrictTo('employee'),
-    repairController.findPendingRepairs,
+    repairController.findPendingRepairs
   )
   .post(
     validation.createAppointmentValidation,
@@ -26,17 +26,17 @@ router
   .get(
     authMiddleware.restrictTo('employee'),
     repairController.findOneRepair,
-    repairMiddleware.validIfRepairExist,
+    repairMiddleware.validIfRepairExist
   )
   .patch(
     authMiddleware.restrictTo('employee'),
     repairController.updateRepairStatus,
-    repairMiddleware.validIfRepairExist,
+    repairMiddleware.validIfRepairExist
   )
   .delete(
     authMiddleware.restrictTo('employee'),
     repairController.cancellRepair,
-    repairMiddleware.validIfRepairExist,
+    repairMiddleware.validIfRepairExist
   );
 
 module.exports = router;
