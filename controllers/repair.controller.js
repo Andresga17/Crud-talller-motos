@@ -1,11 +1,18 @@
 const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
 const Repair = require('../models/repair.model');
+const User = require('../models/user.model');
 
 exports.findPendingRepairs = catchAsync(async (req, res) => {
   const repairs = await Repair.findAll({
     where: {
       status: 'pending',
     },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'name', 'email']
+      }
+    ]
   });
   res.status(200).json({
     status: 'success',
@@ -16,11 +23,13 @@ exports.findPendingRepairs = catchAsync(async (req, res) => {
 });
 
 exports.createAppointment = catchAsync(async (req, res) => {
-  const { date, userId } = req.body;
+  const { date, userId, motorsNumber, description } = req.body;
 
   const repair = await Repair.create({
     date,
     userId,
+    motorsNumber,
+    description,
   });
 
   res.status(200).json({
@@ -37,6 +46,13 @@ exports.findOneRepair = catchAsync(async (req, res) => {
       id,
       status: 'pending',
     },
+
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'name', 'email']
+      }
+    ]
   });
 
   res.status(200).json({
@@ -87,4 +103,4 @@ exports.cancellRepair = catchAsync(async (req, res) => {
     message: 'The repair has been cancelled',
     repairCancelled,
   });
-})
+});

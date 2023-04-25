@@ -18,23 +18,26 @@ router
   .route('/')
   .post(validation.createUserValidation, userController.createUsers);
 
-router.use(authMiddleware.protect);
-
-router.route('/').get(userController.findAllUsers);
+  router.use(authMiddleware.protect);
+  
+  router
+  .route('/')
+  .get(authMiddleware.restrictTo('employee'), userController.findAllUsers);
+  
 
 router
   .route('/:id')
   .get(userMiddleware.validIfUserExist, userController.findOneUser)
   .patch(
-    validation.updateUserValidation,
-    authMiddleware.protectAccountOwner,
     userMiddleware.validIfUserExist,
-    userController.updateUser
+    authMiddleware.protectAccountOwner,
+    userController.updateUser,
+    validation.updateUserValidation,
   )
   .delete(
     userMiddleware.validIfUserExist,
     authMiddleware.protectAccountOwner,
-    userController.deleteUser
+    userController.deleteUser,
   );
 
 module.exports = router;
