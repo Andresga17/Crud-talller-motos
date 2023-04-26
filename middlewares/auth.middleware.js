@@ -1,4 +1,4 @@
-const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
+const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');

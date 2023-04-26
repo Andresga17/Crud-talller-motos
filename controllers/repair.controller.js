@@ -1,4 +1,4 @@
-const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
+const catchAsync = require('./../utils/catchAsync');
 const Repair = require('../models/repair.model');
 const User = require('../models/user.model');
 

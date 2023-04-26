@@ -1,5 +1,5 @@
-const catchAsync = require('../../API_BLOG1/blog_api_gen_22/utils/catchAsync');
-const generateJWT = require('../../API_BLOG1/blog_api_gen_22/utils/jwt');
+const catchAsync = require('./../utils/catchAsync');
+const generateJWT = require('./../utils/jwt');
 const User = require('../models/user.model');
 const AppError = require('../utils/appError');
 const bcrypt = require('bcryptjs');
